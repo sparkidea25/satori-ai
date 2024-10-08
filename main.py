@@ -1,6 +1,7 @@
 from flask import Flask, request
 import requests
 import os
+import openai
 from twilio.twiml.messaging_response import MessagingResponse
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -20,6 +21,62 @@ PDF_FILE_PATH = 'Satori AI - SRS Solar Knowledgebase v0.3 Combined with Pricing.
 # Flag to check if PDF exists
 pdf_exists = False
 VectorStore = None
+
+
+# @app.route('/message', methods=['POST'])
+# def whatsapp():
+#     load_dotenv()
+    
+#     # Load API keys and credentials from environment variables
+#     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+#     account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+#     auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+#     client = Client(account_sid, auth_token)
+#     twilio_phone_number = os.getenv('TWILIO_PHONE_NUMBER')
+#     sender_phone_number = os.getenv('TWILIO_SEND_NUMBER')
+    
+#     media_content_type = request.values.get('MediaContentType0')
+#     response = MessagingResponse()
+
+#     # Check if the PDF file is available or if it's being uploaded via WhatsApp
+#     if media_content_type == 'application/pdf' or os.path.exists(PDF_FILE_PATH):
+#         global pdf_exists, VectorStore
+#         pdf_exists = True
+#         with open(PDF_FILE_PATH, 'rb') as pdf_file:
+#             pdf = PdfReader(pdf_file)
+#             text = ""
+#             for page in pdf.pages:
+#                 text += page.extract_text()
+            
+#             # Split the text into manageable chunks
+#             text_splitter = RecursiveCharacterTextSplitter(
+#                 chunk_size=1000,
+#                 chunk_overlap=200,
+#                 length_function=len
+#             )
+#             chunks = text_splitter.split_text(text=text)
+
+#             # Generate embeddings for the text
+#             embeddings = OpenAIEmbeddings()
+#             VectorStore = FAISS.from_texts(chunks, embedding=embeddings)
+
+#     elif pdf_exists:
+#         question = request.values.get('Body', '').lower()
+#         if question:
+#             # Perform similarity search and question-answering
+#             docs = VectorStore.similarity_search(query=question, k=3)
+#             llm = OpenAI(model_name="gpt-3.5-turbo", temperature=0.4)
+#             chain = load_qa_chain(llm, chain_type="stuff")
+#             answer = chain.run(input_documents=docs, question=question)
+            
+#             # Respond with the answer
+#             response.message(answer)
+#         else:
+#             response.message("Please ask a question related to the PDF.")
+#     else:
+#         response.message("The media content type is not application/pdf or the PDF file is not found.")
+    
+#     return str(response)
 
 
 
@@ -72,21 +129,15 @@ def whatsapp():
             
             # return str(msg)
             return msg
-            # message = client.messages.create(
-            #     body="Hello there!",
-            #     from_='whatsapp:+14155238886',
-            #     to='whatsapp:+2348028520094'
-            # )
-            # return str(message.sid)
 
     else:
         response = "The media content type is not application/pdf or PDF file not found."
 
-    # message = client.messages.create(
-    #     body=response,
-    #     from_=twilio_phone_number,
-    #     to=sender_phone_number
-    # )
+    message = client.messages.create(
+        body=response,
+        from_=twilio_phone_number,
+        to=sender_phone_number
+    )
 
 
 @app.route('/bot', methods=['POST'])
