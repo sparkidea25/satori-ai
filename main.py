@@ -3,7 +3,7 @@ import tempfile
 import requests
 from dotenv import load_dotenv
 from twilio.rest import Client
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
