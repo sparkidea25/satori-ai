@@ -66,7 +66,7 @@ def whatsapp():
             
             
             message = client.messages.create(
-                body=answer,
+                body="Hello there!",
                 from_='whatsapp:+14155238886',
                 to='whatsapp:+2348028520094'
             )
