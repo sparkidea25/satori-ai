@@ -32,7 +32,8 @@ def whatsapp():
     auth_token = os.getenv('TWILIO_AUTH_TOKEN')
     client = Client(account_sid, auth_token)
     twilio_phone_number = os.getenv('TWILIO_PHONE_NUMBER')
-    sender_phone_number = request.values.get('From', '')
+    sender_phone_number = os.getenv('TWILIO_SEND_NUMBER')
+    # sender_phone_number = request.values.get('From', '')
     media_content_type = request.values.get('MediaContentType0')
     
     # Check if the PDF file is available
