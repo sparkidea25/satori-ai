@@ -134,11 +134,11 @@ def whatsapp():
     else:
         response = "The media content type is not application/pdf or PDF file not found."
 
-    message = client.messages.create(
-        body=response,
-        from_=twilio_phone_number,
-        to=sender_phone_number
-    )
+    # message = client.messages.create(
+    #     body=response,
+    #     from_=twilio_phone_number,
+    #     to=sender_phone_number
+    # )
 
 
 @app.route('/bot', methods=['POST'])
