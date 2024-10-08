@@ -92,6 +92,7 @@ def whatsapp():
     sender_phone_number = os.getenv('TWILIO_SEND_NUMBER')
     # sender_phone_number = request.values.get('From', '')
     media_content_type = request.values.get('MediaContentType0')
+    response = MessagingResponse()
     
     # Check if the PDF file is available
     if media_content_type == 'application/pdf' or os.path.exists(PDF_FILE_PATH):
@@ -122,23 +123,28 @@ def whatsapp():
             answer = chain.run(input_documents=docs, question=question)
             print(answer, 'confirm answer')
             
-            bot_resp = MessagingResponse(answer)
-            msg = bot_resp.message()
-            msg.body(answer)
-            
+            # bot_resp = MessagingResponse(answer)
+            # msg = bot_resp.message()
             # msg.body(answer)
+            response.message(answer)
             
-            # return str(msg)
-            return msg
-
-    else:
-        response = "The media content type is not application/pdf or PDF file not found."
+    # else:
+    #     response = "The media content type is not application/pdf or PDF file not found."
+    # return str(msg)
 
     # message = client.messages.create(
     #     body=response,
     #     from_=twilio_phone_number,
     #     to=sender_phone_number
     # )
+    
+    #   response.message(answer)
+        else:
+            response.message("Please ask a question related to the PDF.")
+    else:
+        response.message("The media content type is not application/pdf or the PDF file is not found.")
+    
+    return str(response)
 
 
 @app.route('/bot', methods=['POST'])
