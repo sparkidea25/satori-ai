@@ -24,7 +24,7 @@ VectorStore = None
 
 
 @app.route('/message', methods=['POST'])
-def whatsapp(Body: str):
+def whatsapp(Body):
     load_dotenv()
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
     response = None
