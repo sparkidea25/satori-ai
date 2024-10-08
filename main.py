@@ -9,6 +9,7 @@ from langchain_openai import OpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
 from twilio.rest import Client
+from PyPDF2 import PdfReader
 
 app = Flask(__name__)
 
