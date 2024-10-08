@@ -55,7 +55,8 @@ def whatsapp():
             VectorStore = FAISS.from_texts(chunks, embedding=embeddings)
     elif pdf_exists:
         # question = request.values.get('Body').lower()
-        question = request.values.get('Body').lower()
+        question = request.values.get('Body', '').lower()
+        # incoming_que = request.values.get('Body', '').lower()
         # question = Body
         if pdf_exists:
             docs = VectorStore.similarity_search(query=question, k=3)
@@ -64,22 +65,27 @@ def whatsapp():
             answer = chain.run(input_documents=docs, question=question)
             print(answer, 'confirm answer')
             
+            bot_resp = MessagingResponse(answer)
+            msg = bot_resp.message()
             
-            message = client.messages.create(
-                body="Hello there!",
-                from_='whatsapp:+14155238886',
-                to='whatsapp:+2348028520094'
-            )
-            return str(message.sid)
+            msg.body(answer)
+            
+            return str(bot_resp)
+            # message = client.messages.create(
+            #     body="Hello there!",
+            #     from_='whatsapp:+14155238886',
+            #     to='whatsapp:+2348028520094'
+            # )
+            # return str(message.sid)
 
     else:
         response = "The media content type is not application/pdf or PDF file not found."
 
-    message = client.messages.create(
-        body=response,
-        from_=twilio_phone_number,
-        to=sender_phone_number
-    )
+    # message = client.messages.create(
+    #     body=response,
+    #     from_=twilio_phone_number,
+    #     to=sender_phone_number
+    # )
 
 
 @app.route('/bot', methods=['POST'])
