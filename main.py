@@ -70,7 +70,7 @@ def whatsapp():
             
             # msg.body(answer)
             
-            return str(msg)
+            # return str(msg)
             # message = client.messages.create(
             #     body="Hello there!",
             #     from_='whatsapp:+14155238886',
