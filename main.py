@@ -68,9 +68,9 @@ def whatsapp():
             bot_resp = MessagingResponse(answer)
             msg = bot_resp.message()
             
-            msg.body(answer)
+            # msg.body(answer)
             
-            return str(bot_resp)
+            return str(msg)
             # message = client.messages.create(
             #     body="Hello there!",
             #     from_='whatsapp:+14155238886',
@@ -110,7 +110,7 @@ def bot():
         responded = True
     if not responded:
         msg.body('I only know about famous quotes and cats, sorry!')
-    return str(resp)
+    # return str(resp)
 
 
 if __name__ == '__main__':
