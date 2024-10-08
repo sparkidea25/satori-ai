@@ -1,5 +1,6 @@
 from flask import Flask, request
 import requests
+import os
 from twilio.twiml.messaging_response import MessagingResponse
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -7,6 +8,7 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain_openai import OpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
+from twilio.rest import Client
 
 app = Flask(__name__)
 
