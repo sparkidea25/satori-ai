@@ -67,8 +67,8 @@ def whatsapp():
             
             message = client.messages.create(
                 body=answer,
-                from_=twilio_phone_number,
-                to=sender_phone_number
+                from_='whatsapp:+14155238886',
+                to='whatsapp:+2348028520094'
             )
             return str(message.sid)
 
