@@ -55,8 +55,7 @@ def whatsapp():
             VectorStore = FAISS.from_texts(chunks, embedding=embeddings)
     elif pdf_exists:
         # question = request.values.get('Body').lower()
-        question = request.form['Body'].lower().strip() 
-        # question = request.values.get('Body')
+        question = request.values.get('Body').lower()
         # question = Body
         if pdf_exists:
             docs = VectorStore.similarity_search(query=question, k=3)
