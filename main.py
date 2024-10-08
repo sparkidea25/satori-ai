@@ -24,7 +24,7 @@ VectorStore = None
 
 
 @app.route('/message', methods=['POST'])
-def whatsapp(Body):
+def whatsapp():
     load_dotenv()
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
     response = None
@@ -55,7 +55,8 @@ def whatsapp(Body):
             VectorStore = FAISS.from_texts(chunks, embedding=embeddings)
     elif pdf_exists:
         # question = request.values.get('Body').lower()
-        question = Body
+        question = request.values.get('Body')
+        # question = Body
         if pdf_exists:
             docs = VectorStore.similarity_search(query=question, k=3)
             llm = OpenAI(model_name="gpt-3.5-turbo", temperature=0.4)
