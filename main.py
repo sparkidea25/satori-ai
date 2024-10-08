@@ -62,6 +62,9 @@ def whatsapp():
             llm = OpenAI(model_name="gpt-3.5-turbo", temperature=0.4)
             chain = load_qa_chain(llm, chain_type="stuff")
             answer = chain.run(input_documents=docs, question=question)
+            print(answer, 'confirm answer')
+            
+            
             message = client.messages.create(
                 body=answer,
                 from_=twilio_phone_number,
