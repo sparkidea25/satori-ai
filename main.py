@@ -6,9 +6,11 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain_openai import OpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
+load_dotenv() 
 PDF_FILE_PATH = 'Satori AI - SRS Solar Knowledgebase v0.3 Combined with Pricing.pdf'
 
 # Flag to check if PDF exists
