@@ -126,7 +126,9 @@ def whatsapp():
             # bot_resp = MessagingResponse(answer)
             # msg = bot_resp.message()
             # msg.body(answer)
-            response.message(answer)
+            msg = response.message()
+            msg.body(answer)
+            
             
     # else:
     #     response = "The media content type is not application/pdf or PDF file not found."
@@ -144,6 +146,7 @@ def whatsapp():
     else:
         response.message("The media content type is not application/pdf or the PDF file is not found.")
     
+    # return str(response)
     return str(response)
 
 
